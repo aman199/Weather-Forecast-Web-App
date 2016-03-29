@@ -1,0 +1,128 @@
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+h3
+{
+    font-weight: 800;
+}
+
+body {
+    background: url("http://cs-server.usc.edu:45678/hw/hw8/images/bg.jpg") no-repeat center center fixed;
+    background-size: cover;
+    height: 100%;
+    vertical-align: top;
+    margin: auto 10px;
+
+}
+
+.jumbotron {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding-left: 10px;
+}
+
+#jumbo {
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+.star {
+    color: red;
+}
+
+ label {
+            color: white;
+        }
+
+#lab {
+    color: white;
+}
+
+a:link {
+    color: black;
+}
+
+label.error {
+    float: none;
+    color: red;
+    vertical-align: top;
+    display: block;
+    position: fixed;
+}
+
+
+#header {
+    background-color: LightCoral;
+}
+
+#tabsdiv {
+    visibility: hidden;
+}
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
+    background-color: #2c72ab !important;
+    color: white !important;
+}
+
+.nav-tabs > li>a {
+    color: blue;
+    background-color: white;
+}
+
+#myTable {
+    background-color: white;
+    text-align: center;
+    padding: 0;
+}
+
+.table > tbody > tr > td {
+    border: none;
+}
+
+.table > tbody> tr > th
+{
+    text-align: center;
+    border: none;
+}
+.table
+{
+    margin-bottom: 0px;
+    border: none;
+    padding: 0px;
+}
+
+.noborder{
+    border: none;
+}   
+
+@media screen and (min-width: 500px) {
+    .btn-autosize {
+        width:100px;
+        margin:10px;
+        padding:0px;
+    }
+    #days {
+        background-color:black;
+    }
+}
+
+
+@media screen and (max-width: 500px) {
+  .btn-autosize {
+    width: 90%;
+       border-radius: 40px;
+      padding: 10px;
+      
+  }
+    #days {
+        background: none;
+    } 
+}
+.col-md-4
+    {
+        border: none;
+    }

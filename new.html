@@ -1,0 +1,257 @@
+<html>
+
+<head>
+    <title>Weather Forecast :)</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.14.0/jquery.validate.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="new.css">
+    <script type="text/javascript" src="new.js"></script>
+    <script src="http://openlayers.org/api/OpenLayers.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.4.1/moment-timezone-with-data-2010-2020.min.js"></script>
+
+
+
+</head>
+
+<body>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '1519202045070615',
+                xfbml: true,
+                version: 'v2.5'
+            });
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <div class="container">
+        <h1>Forecast Search</h1>
+        <div class="jumbotron" id="jumbo">
+            <div class="container">
+
+                <form class="form-inline" id="myform" name="myform">
+                    <div class="col-md-9">
+                        <div class="form-group" class="container-fluid">
+                            <label for="StreetAddress">Street Address:<span class="star">*</span></label>
+                            <br>
+                            <input type="text" size="30" style="width: 100%;" class="form-control" id="StreetAddress"                                           name="StreetAddress" placeholder="Enter street address">
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="city">City:<span class="star">*</span></label>
+                            <br>
+                            <input type="text" class="form-control" id="city" name="city"
+                                   placeholder="Enter the city name">
+
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State:<span class="star">*</span></label>
+
+                            <br>
+                            <select class="form-control" id="state" name="state">
+                                <option value="select" selected>
+                                    Select your state
+                                </option>
+                                <option value="AL">Alabama</option>
+                                <option value="AK">Alaska</option>
+                                <option value="AZ">Arizona</option>
+                                <option value="AR">Arkansas</option>
+                                <option value="CA">California</option>
+                                <option value="CO">Colorado</option>
+                                <option value="CT">Connecticut</option>
+                                <option value="DE">Delaware</option>
+                                <option value="DC">District Of Columbia</option>
+                                <option value="FL">Florida</option>
+                                <option value="GA">Georgia</option>
+                                <option value="HI">Hawaii</option>
+                                <option value="ID">Idaho</option>
+                                <option value="IL">Illinois</option>
+                                <option value="IN">Indiana</option>
+                                <option value="IA">Iowa</option>
+                                <option value="KS">Kansas</option>
+                                <option value="KY">Kentucky</option>
+                                <option value="LA">Louisiana</option>
+                                <option value="ME">Maine</option>
+                                <option value="MD">Maryland</option>
+                                <option value="MA">Massachusetts</option>
+                                <option value="MI">Michigan</option>
+                                <option value="MN">Minnesota</option>
+                                <option value="MS">Mississippi</option>
+                                <option value="MO">Missouri</option>
+                                <option value="MT">Montana</option>
+                                <option value="NE">Nebraska</option>
+                                <option value="NV">Nevada</option>
+                                <option value="NH">New Hampshire</option>
+                                <option value="NJ">New Jersey</option>
+                                <option value="NM">New Mexico</option>
+                                <option value="NY">New York</option>
+                                <option value="NC">North Carolina</option>
+                                <option value="ND">North Dakota</option>
+                                <option value="OH">Ohio</option>
+                                <option value="OK">Oklahoma</option>
+                                <option value="OR">Oregon</option>
+                                <option value="PA">Pennsylvania</option>
+                                <option value="RI">Rhode Island</option>
+                                <option value="SC">South Carolina</option>
+                                <option value="SD">South Dakota</option>
+                                <option value="TN">Tennessee</option>
+                                <option value="TX">Texas</option>
+                                <option value="UT">Utah</option>
+                                <option value="VT">Vermont</option>
+                                <option value="VA">Virginia</option>
+                                <option value="WA">Washington</option>
+                                <option value="WV">West Virginia</option>
+                                <option value="WI">Wisconsin</option>
+                                <option value="WY">Wyoming</option>
+                            </select>
+                            <span id="selerr"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="deg">Degree:<span class="star">*</span></label>
+                            <br>
+                            <input type="radio" name="degree" class="deg" value="Fahrenheit" checked>Fahrenheit
+                            <input type="radio" name="degree" class="deg" value="Celsius">Celsius
+                        </div>
+                    </div>
+
+                    <div class="col-md-3" align="right" style="padding-top:25px">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-md" value="submit">
+                                <span class=" glyphicon glyphicon-search" aria-hidden=" true "></span>Search</button>
+                            <button type="button" class="btn btn-default btn-md" value="Clear" 
+                                    onclick="window.location = window.location.href">
+                                <span class=" glyphicon glyphicon-refresh" aria-hidden=" true "></span> Clear</button>
+                        </div>
+
+                        <div id="logo">
+                            <span id="lab">Powered by:</span>
+                            <a href="http://forcast.io">
+                                <img src="http://cs-server.usc.edu:45678/hw/hw8/images/forecast_logo.png" 
+                                     width="90" height="50" alt="Forcast.io" title="Forcast.io"></a>
+                        </div>
+                   </div>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div class="container-fluid" id="tabsdiv" style="padding:0px;">
+            <ul class="nav nav-tabs">
+                <li class="active"><a role="tab" data-toggle="tab" id="nowtab" data-target="#now">Right Now</a></li>
+                <li><a role="tab" data-toggle="tab" data-target="#hours" id="hourstab">Next 24 Hours</a></li>
+                <li><a role="tab" data-toggle="tab" data-target="#days" id="daystab">Next 7 Days</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="now" class="tab-pane fade in active" role="tabpanel">
+                    <div class="col-lg-6" style="padding:0px;">
+                        <div class="table-responsive">
+                            <table class="table table-striped" border="0">
+                                <tr style="background-color: #f27e7e; color:white; text-align:center;">
+                                    <td colspan="2">
+                                        <div class="col-md-6" id="icon">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p id="summary" style="font-size:13px; font-weight: bold; "></p>
+
+                                            <p id="temp" style="font-size:50px; font-weight: bold; "></p>
+
+                                            <p id="hl"></p>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr style="background-color: #f7f7f7;">
+                                    <td>
+                                        Precipitation
+                                    </td>
+                                    <td id="prec"></td>
+                                </tr>
+                                <tr style="background-color: #f2dfdf;">
+                                    <td>
+                                        Chance of Rain
+                                    </td>
+                                    <td id="rain"></td>
+
+                                </tr>
+                                <tr style="background-color: #f7f7f7;">
+                                    <td>Wind Speed</td>
+                                    <td id="ws"> </td>
+                                </tr>
+                                <tr style="background-color: #f2dfdf;">
+                                    <td>
+                                        Dew Point
+                                    </td>
+                                    <td id="dp"></td>
+
+                                </tr>
+                                <tr style="background-color:#f7f7f7 ;">
+                                    <td>
+                                        Humidity
+                                    </td>
+                                    <td id="hum"></td>
+
+                                </tr>
+                                <tr style="background-color: #f2dfdf;">
+                                    <td>Visibility</td>
+                                    <td id="vis"></td>
+
+                                </tr>
+                                <tr style="background-color:#f7f7f7;">
+                                    <td>
+                                        Sunrise
+                                    </td>
+                                    <td id="sr"></td>
+                                </tr>
+                                <tr style="background-color: #f2dfdf;">
+                                    <td>
+                                        Sunset
+                                    </td>
+                                    <td id="ss"></td>
+                                </tr>
+                            </table>
+                       </div>
+                    </div>
+                    <div class="col-lg-6" style="padding:0px;">
+                        <div id="mapid" style="height:469.95px; border: 2px solid white">
+
+                        </div>
+                    </div>
+                </div>
+                <div id="hours" class="tab-pane fade" role="tabpanel">
+                    <div class="table-responsive">
+                        <table class="table" id="myTable">
+                            <tr bgcolor="#2c72ab" style="color:white;border:1px solid white">
+                                <th style="text-align:center;">Time</th>
+                                <th style="text-align:center;">Summary</th>
+                                <th style="text-align:center;">Cloud cover</th>
+                                <th style="text-align:center;" id="tabhead"></th>
+                                <th style="text-align:center;">View Details</th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div id="days" class="tab-pane fade" align="center" role="tabpanel">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
